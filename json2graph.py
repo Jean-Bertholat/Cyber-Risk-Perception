@@ -36,28 +36,40 @@ def json2graph(filename):
         # Personnalisation du look du graphique
         net.set_options("""
         var options = {
-        "nodes": {
-            "color": {
-            "border": "rgb(0,0,0)",
-            "background": "rgb(150, 200, 255)"
+            "nodes": {
+                "color": {
+                "border": "rgb(0,0,0)",
+                "background": "rgb(150, 200, 255)"
+                },
+                "font": {
+                "color": "black"
+                },
+                "size": 20
             },
-            "font": {
-            "color": "black"
+            "edges": {
+                "color": "rgb(0, 100, 200)",
+                "width": 3,
+                "smooth": {
+                "type": "continuous"
+                }
             },
-            "size": 20
-        },
-        "edges": {
-            "color": "rgb(0, 100, 200)",
-            "width": 3,
-            "smooth": {
-            "type": "continuous"
+            "physics": {
+                "forceAtlas2Based": {
+                "gravitationalConstant": -50,
+                "centralGravity": 0.005,
+                "springLength": 100,
+                "springConstant": 0.08,
+                "damping": 0.4
+                },
+                "solver": "forceAtlas2Based",
+                "stabilization": {
+                "enabled": true,
+                "iterations": 200
+                },
+                "timestep": 0.5,
+                "adaptiveTimestep": true
             }
-        },
-        "physics": {
-            "enabled": true
-        }
-        }
-        """)
+        }""")
 
         # Sauvegarder le graphe dans un fichier HTML
         #net.show("graph_interactif.html", notebook=False)
