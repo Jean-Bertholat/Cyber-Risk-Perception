@@ -1,4 +1,23 @@
 # Liste des risques globaux
+INTRODUCTION = """
+Bienvenue dans l'application "Cartographie de la perception des risques cyber" !
+
+Cette plateforme a pour objectif de mieux comprendre la répartition de la perception entre différents risques cyber, tels que le changement climatique, les crises économiques, les pandémies, et bien d'autres. En participant à cet exercice, vous aiderez à identifier les relations possibles entre ces risques et les conséquences qu’ils peuvent engendrer les uns sur les autres.
+
+Comment cela fonctionne :
+
+10 risques cyber vous seront proposés :
+Pour chaque risque proposé, vous serez invité à sélectionner jusqu'à 5 autres risques qui pourraient être déclenchés si ce risque se matérialisait.
+
+Complétez les interconnexions :
+Vous verrez une liste déroulante pour chaque risque proposé. Vous devrez sélectionner entre 1 et 5 risques (les options "Autre" et "Aucun" peuvent être utilisées).
+
+Soumission des données :
+Une fois que vous avez complété toutes les interconnexions, cliquez sur le bouton pour visualiser vos résultats.
+
+Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour une analyse ultérieure. Merci pour votre contribution à ce projet !
+"""
+
 GLOBAL_RISKS = [
 "Phishing",
 "Ransomware",
