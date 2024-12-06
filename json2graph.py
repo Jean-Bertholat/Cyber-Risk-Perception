@@ -3,19 +3,12 @@ import networkx as nx
 from pyvis.network import Network
 
 # Fonction pour charger le fichier JSON depuis le serveur
-def load_json_file(filepath):
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        return data
-    except Exception as e:
-        raise(f"Erreur lors du chargement du fichier : {e}")
 
-def json2graph(filename):
-    data = load_json_file(filename)
+def json2graph(data):
 
+    data = json.loads(data)
     if data:
-                # Créer un graphe NetworkX
+    # Créer un graphe NetworkX
         G = nx.Graph()
 
         # Ajouter les nœuds et les arêtes
