@@ -1,66 +1,23 @@
 from random import sample
 from json2graph import json2graph
+from utils import GLOBAL_RISKS, INTRODUCTION
+from style import custom_css
 import streamlit as st
 import json
 import os
 from datetime import datetime
-from utils import GLOBAL_RISKS
 
 
 NUM_SELECTION_RANDOM = 2
 MAX_SELECTION = 5
 FILE_OUT_PATH= os.getcwd() + "\\responses"
-
 os.makedirs(FILE_OUT_PATH, exist_ok=True)
-
-
-custom_css = """
-    <style>
-    div.stButton > button:first-child {
-        background-color: #4CAF50; /* Vert */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-    }
-    div.stButton > button:first-child:hover {
-        background-color: #45a049; /* Vert foncé au survol */
-    }
-    </style>
-    """
 
 # Fonction principale de l'application Streamlit
 def main():
     st.title("Cartographie des Conséquences des Risques Globaux")
-    st.markdown(
-        """
-Bienvenue dans l'application "Cartographie de la perception des risques cyber" !
-
-Cette plateforme a pour objectif de mieux comprendre la répartition de la perception entre différents risques cyber, tels que le changement climatique, les crises économiques, les pandémies, et bien d'autres. En participant à cet exercice, vous aiderez à identifier les relations possibles entre ces risques et les conséquences qu’ils peuvent engendrer les uns sur les autres.
-
-Comment cela fonctionne :
-
-10 risques cyber vous seront proposés :
-Pour chaque risque proposé, vous serez invité à sélectionner jusqu'à 5 autres risques qui pourraient être déclenchés si ce risque se matérialisait.
-
-Complétez les interconnexions :
-Vous verrez une liste déroulante pour chaque risque proposé. Vous devrez sélectionner entre 1 et 5 risques (les options "Autre" et "Aucun" peuvent être utilisées).
-
-Soumission des données :
-Une fois que vous avez complété toutes les interconnexions, cliquez sur le bouton pour visualiser vos résultats.
-
-Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour une analyse ultérieure. Merci pour votre contribution à ce projet !
-        """
-    )
+    st.markdown(INTRODUCTION,custom_css, unsafe_allow_html=True)
     
-    st.markdown(custom_css, unsafe_allow_html=True)
-
     # Stockage des données dans la session
     if "data" not in st.session_state:
         st.session_state.data = []
@@ -102,8 +59,11 @@ Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour
                 for risk in selected_risks
             ]
             filename = f"risk_mapping_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            
             file_path = os.path.join(FILE_OUT_PATH, filename)
-            save_data_to_json_file(st.session_state.data, file_path)
+            data = json.dumps(st.session_state.data, indent=4, ensure_ascii=False)
+            
+            save_data_to_json_file(data, file_path)
             st.success("Les données ont été sauvegardées\n Merci pour votre participation.")
     
     # Affichage des données collectées
@@ -112,7 +72,7 @@ Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour
             
             #
             try:
-                fig = json2graph(file_path)
+                fig = json2graph(data)
                 # Ajouter des interactions
 
                 # Générer le code HTML
@@ -132,12 +92,10 @@ Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour
             st.warning("Veuillez compléter tous les formulaires avant de soumettre.")
 
 
-
-
 # Fonction pour sauvegarder les données dans un fichier JSON
 def save_data_to_json_file(data, filename):
     with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+        f.write(data)
 
 # Lancer l'application Streamlit
 if __name__ == "__main__":
