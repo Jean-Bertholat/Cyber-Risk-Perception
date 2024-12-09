@@ -71,7 +71,7 @@ def main():
 
             try:
                 id = upload_file(file_path) # Télécharger sur Google Drive
-                st.success(f'Les données ont été sauvegardées avec succès - 
+                st.success(f'Les données ont été sauvegardées avec succès - \
                            Merci pour votre participation.')
             except:
                 st.error(f"Une erreur est survenue lors du téléchargement sur Google Drive : {e}")
