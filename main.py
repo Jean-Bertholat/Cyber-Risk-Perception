@@ -10,7 +10,7 @@ from datetime import datetime
 import logging
 
 
-NUM_SELECTION_RANDOM = 2
+NUM_SELECTION_RANDOM = 10
 MAX_SELECTION = 5
 FILE_OUT_PATH= os.getcwd() + "\\responses"
 os.makedirs(FILE_OUT_PATH, exist_ok=True)
@@ -44,7 +44,6 @@ def main():
     all_filled = True
     for risk in selected_risks:
         with st.expander(f"Risque identifié : {risk}", expanded=False):
-            #st.write()
             consequences = st.session_state.get(f"consequences_{risk}", [])
             new_consequences = st.multiselect(
                 f"Quels autres risques pourraient être déclenchés par : {risk} ?",
