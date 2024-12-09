@@ -7,11 +7,20 @@ import streamlit as st
 import json
 import os
 from datetime import datetime
+import logging
+
 
 NUM_SELECTION_RANDOM = 2
 MAX_SELECTION = 5
 FILE_OUT_PATH= os.getcwd() + "\\responses"
 os.makedirs(FILE_OUT_PATH, exist_ok=True)
+
+# Configurer le logger
+logging.basicConfig(
+    filename='app.log',  # Enregistrer les logs dans un fichier
+    level=logging.INFO,  # Niveau de log
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 # Fonction principale de l'application Streamlit
 def main():
@@ -65,16 +74,18 @@ def main():
             data = json.dumps(st.session_state.data, indent=4, ensure_ascii=False)
             try:
                 save_data_to_json_file(data, file_path)         # Sauvegarder temporairement le fichier sur le serveur
-                st.success("Les données ont été sauvegardées sur le container")
+                logging.info("Les données ont été sauvegardées sur le container")
             except Exception as e:
-                st.error(f"Une erreur est survenue lors de l'enregistrement sur le container : {e}")
+                logging.error(f"Une erreur est survenue lors de l'enregistrement sur le container : {e}")
 
             try:
                 id = upload_file(file_path) # Télécharger sur Google Drive
                 st.success(f'Les données ont été sauvegardées avec succès - \
                            Merci pour votre participation.')
             except Exception as e:
-                st.error(f"Une erreur est survenue lors du téléchargement sur Google Drive : {e}")
+                st.error(f"Une erreur est survenue lors de la sauvegarde des résultats: {e}")
+                logging.error(f"Une erreur est survenue lors du téléchargement sur Google Drive : {e}")
+
     
     # Affichage des données collectées
         if st.session_state.data:

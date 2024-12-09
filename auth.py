@@ -53,9 +53,8 @@ def upload_file(file_path):
     media = MediaFileUpload(file_path, resumable=True)
     
     try:
-        file = service.files().create(body=file_metadata, media_body=media, fields='id, webViewLink').execute()
+        file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
         #st.success(f"Fichier téléchargé avec succès !")
-        st.write(f"[Voir le fichier sur Google Drive](https://drive.google.com/file/d/{file['id']}/view)")
         return file["id"]
     except Exception as e:
         st.error(f"Erreur lors du téléchargement du fichier : {e}")
