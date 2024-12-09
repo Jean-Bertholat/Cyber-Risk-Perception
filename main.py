@@ -1,4 +1,5 @@
 from random import sample
+from auth import upload_file
 from json2graph import json2graph
 from utils import GLOBAL_RISKS, INTRODUCTION
 from style import custom_css
@@ -6,7 +7,6 @@ import streamlit as st
 import json
 import os
 from datetime import datetime
-
 
 NUM_SELECTION_RANDOM = 2
 MAX_SELECTION = 5
@@ -49,7 +49,6 @@ def main():
             if not new_consequences:
                 all_filled = False
 
-
     st.subheader("Aperçu des données collectées")
     
     # Vérifiez si tous les formulaires sont remplis avant d'afficher le bouton "Soumettre"
@@ -65,7 +64,8 @@ def main():
             file_path = os.path.join(FILE_OUT_PATH, filename)
             data = json.dumps(st.session_state.data, indent=4, ensure_ascii=False)
             
-            save_data_to_json_file(data, file_path)
+            save_data_to_json_file(data, file_path)         # Sauvegarder temporairement le fichier sur le serveur
+            upload_file(file_path) # Télécharger sur Google Drive
             st.success("Les données ont été sauvegardées\n Merci pour votre participation.")
     
     # Affichage des données collectées

@@ -59,3 +59,4 @@ GLOBAL_RISKS = [
 "Attaque de type man-in-the-middle"
 "Autre"
 ]
+
