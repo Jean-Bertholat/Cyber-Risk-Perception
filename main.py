@@ -66,14 +66,14 @@ def main():
             try:
                 save_data_to_json_file(data, file_path)         # Sauvegarder temporairement le fichier sur le serveur
                 st.success("Les données ont été sauvegardées sur le container")
-            except:
+            except Exception as e:
                 st.error(f"Une erreur est survenue lors de l'enregistrement sur le container : {e}")
 
             try:
                 id = upload_file(file_path) # Télécharger sur Google Drive
                 st.success(f'Les données ont été sauvegardées avec succès - \
                            Merci pour votre participation.')
-            except:
+            except Exception as e:
                 st.error(f"Une erreur est survenue lors du téléchargement sur Google Drive : {e}")
     
     # Affichage des données collectées
