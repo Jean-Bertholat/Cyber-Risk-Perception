@@ -16,7 +16,9 @@ os.makedirs(FILE_OUT_PATH, exist_ok=True)
 # Fonction principale de l'application Streamlit
 def main():
     st.title("Cartographie des Conséquences des Risques Globaux")
-    st.markdown(INTRODUCTION,custom_css, unsafe_allow_html=True)
+    st.markdown(custom_css, unsafe_allow_html=True)
+    st.write(INTRODUCTION)
+    st.subheader("Cartographie des risques:")
     
     # Stockage des données dans la session
     if "data" not in st.session_state:
