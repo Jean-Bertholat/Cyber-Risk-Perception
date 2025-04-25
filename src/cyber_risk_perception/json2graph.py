@@ -12,7 +12,7 @@ def json2graph(data):
         G = nx.Graph()
 
         # Ajouter les nœuds et les arêtes
-        for item in data:
+        for item in data['responses']:
             risk = item["risk"]
             for consequence in item["consequences"]:
                 G.add_edge(risk, consequence)

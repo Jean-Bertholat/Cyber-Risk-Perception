@@ -1,63 +1,66 @@
 # Liste des risques globaux
+TITLE = "Mapping the Consequences of Global Risks"
 INTRODUCTION = """
-Bienvenue dans l'application "Cartographie de la perception des risques cyber" !
+Welcome to the “Mapping the perception of cyber risks” application!
 
-Cette plateforme a pour objectif de mieux comprendre la répartition de la perception entre différents risques cyber, tels que le changement climatique, les crises économiques, les pandémies, et bien d'autres. En participant à cet exercice, vous aiderez à identifier les relations possibles entre ces risques et les conséquences qu’ils peuvent engendrer les uns sur les autres.
+The aim of this platform is to better understand the distribution of perception between different cyber risks, such as climate change, economic crises, pandemics, and many others. By taking part in this exercise, you'll help to identify possible relationships between these risks and the consequences they may have on each other.
 
-Comment cela fonctionne :
+How it works :
 
-10 risques cyber vous seront proposés :
-Pour chaque risque proposé, vous serez invité à sélectionner jusqu'à 5 autres risques qui pourraient être déclenchés si ce risque se matérialisait.
+6 cyber risks will be proposed to you:
+For each proposed risk, you will be asked to select up to 5 other risks that could be triggered if that risk were to materialize.
 
-Complétez les interconnexions :
-Vous verrez une liste déroulante pour chaque risque proposé. Vous devrez sélectionner entre 1 et 5 risques (les options "Autre" et "Aucun" peuvent être utilisées).
+Complete the interconnections:
+You'll see a drop-down list for each proposed risk. You will be asked to select between 1 and 5 risks (the “Other” and “None” options can be used).
 
-Soumission des données :
-Une fois que vous avez complété toutes les interconnexions, cliquez sur le bouton pour visualiser vos résultats.
+Submit data:
+Once you have completed all the interconnections, click on the button to view your results.
 
-Vos réponses seront enregistrées de manière anonyme dans un fichier JSON pour une analyse ultérieure. Merci pour votre contribution à ce projet !
+Your answers will be saved anonymously in a JSON file for later analysis. Thank you for your contribution to this project!
 """
 
 GLOBAL_RISKS = [
 "Phishing",
 "Ransomware",
 "Malware",
-"Attaque par déni de service (DDoS)",
-"Exploitation de vulnérabilités logicielles",
-"Vol de données personnelles",
-"Ingénierie sociale",
-"Exploitation de systèmes obsolètes",
-"Usurpation d'identité numérique",
-"Réseaux privés virtuels compromis (VPN)",
-"Attaque par brute force",
-"Logiciels espions",
-"Usurpation d'identité",
-"Malware polymorphe",
-"Vol de propriété intellectuelle",
-"Attaque par ransomware de chaîne d’approvisionnement",
-"Fuite de données",
-"Exploitation de failles de sécurité du réseau",
-"Usurpation de site web (pharming)",
-"Attaque par injection SQL",
-"Réseaux sans fil compromis (Wi-Fi)",
-"Menaces contre les infrastructures critiques",
-"Exploitation de mot de passe faible",
-"Attaque par spyware",
-"Usurpation de numéro de téléphone (SIM swap)",
-"Exploitation de systèmes industriels (ICS) compromis",
-"Vol de jetons d’accès (token theft)",
-"Exploitation de vulnérabilités de services cloud",
-"Exploitation de failles dans la chaîne d’approvisionnement en logiciels",
-"Exploitation de vulnérabilités de logiciels tiers",
-"Risque de cybersécurité dans l’Internet des objets (IoT)",
-"Menaces de l’ingénierie sociale via les réseaux sociaux",
-"Vol de données de cartes bancaires",
-"Exploitation de l’intelligence artificielle (IA) pour les cyberattaques",
-"Attaque via les APIs non sécurisées",
-"Cyber-espionnage industriel",
-"Exploitation de la virtualisation",
-"Attaque de type man-in-the-middle"
-"Autre",
-"Aucun"
+"Denial of Service Attack (DDoS)",
+"Exploitation of Software Vulnerabilities",
+"Theft of Personal Data",
+"Social Engineering",
+"Exploitation of Outdated Systems",
+"Digital Identity Theft",
+"Compromised Virtual Private Networks (VPN)",
+"Brute Force Attack",
+"Spyware",
+"Identity Theft",
+"Polymorphic Malware",
+"Theft of Intellectual Property",
+"Supply Chain Ransomware Attack",
+"Data Leak",
+"Exploitation of Network Security Flaws",
+"Website Spoofing (Pharming)",
+"SQL Injection Attack",
+"Compromised Wireless Networks (Wi-Fi)",
+"Threats to Critical Infrastructure",
+"Exploitation of Weak Passwords",
+"Spyware Attack",
+"Phone Number Spoofing (SIM Swap)",
+"Exploitation of Compromised Industrial Control Systems (ICS)",
+"Access Token Theft",
+"Exploitation of Cloud Service Vulnerabilities",
+"Exploitation of Software Supply Chain Flaws",
+"Exploitation of Third-Party Software Vulnerabilities",
+"Cybersecurity Risks in the Internet of Things (IoT)",
+"Social Engineering Threats via Social Media",
+"Theft of Credit Card Data",
+"Exploitation of Artificial Intelligence (AI) for Cyberattacks",
+"Attack via Unsecured APIs",
+"Industrial Cyber Espionage",
+"Exploitation of Virtualization",
+"Man-in-the-Middle Attack",
+"Other",
+"None"
 ]
+
+
 
