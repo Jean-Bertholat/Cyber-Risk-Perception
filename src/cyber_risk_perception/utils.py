@@ -1,5 +1,5 @@
 # Liste des risques globaux
-NUM_SELECTION_RANDOM = 2
+NUM_SELECTION_RANDOM = 6
 MAX_SELECTION = 5
 
 TITLE = "Mapping the Consequences of Global Risks"
