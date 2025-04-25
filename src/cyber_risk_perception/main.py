@@ -49,7 +49,7 @@ def main():
         with st.expander(f"Identified Risk : {risk}", expanded=False):
             consequences = st.session_state.get(f"consequences_{risk}", [])
             new_consequences = st.multiselect(
-                f"Quels autres risques pourraient être déclenchés par : {risk} ?",
+                f"What other risks could be triggered by:{risk} ?",
                 options=[r for r in GLOBAL_RISKS if r != risk],
                 key=f"choices_{risk}",
                 max_selections=MAX_SELECTION
