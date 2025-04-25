@@ -3,7 +3,7 @@ from random import sample
 import bleach
 from cyber_risk_perception.auth import upload_file
 from cyber_risk_perception.json2graph import json2graph
-from cyber_risk_perception.utils import GLOBAL_RISKS, INTRODUCTION, TITLE
+from cyber_risk_perception.utils import GLOBAL_RISKS, INTRODUCTION, MAX_SELECTION, NUM_SELECTION_RANDOM, TITLE
 from cyber_risk_perception.style import custom_css
 import streamlit as st
 import json
@@ -12,8 +12,6 @@ from datetime import datetime
 import logging
 
 
-NUM_SELECTION_RANDOM = 6
-MAX_SELECTION = 5
 FILE_OUT_PATH= os.getcwd() + "\\responses"
 os.makedirs(FILE_OUT_PATH, exist_ok=True)
 
@@ -43,47 +41,66 @@ def main():
     
     selected_risks = st.session_state.selected_risks
 
+    # Initialisation des clés session_state avant la boucle
+    for risk in selected_risks:
+        if f"other_{risk}" not in st.session_state:
+            st.session_state[f"other_{risk}"] = False
+        if f"consequences_{risk}" not in st.session_state:
+            st.session_state[f"consequences_{risk}"] = []
+
     # Interface pour chaque risque principal
     all_filled = True
     for risk in selected_risks:
         with st.expander(f"Identified Risk : {risk}", expanded=False):
-            consequences = st.session_state.get(f"consequences_{risk}", [])
+
             new_consequences = st.multiselect(
-                f"What other risks could be triggered by:{risk} ?",
+                f"What risks could be triggered by:{risk} ?",
                 options=[r for r in GLOBAL_RISKS if r != risk],
                 key=f"choices_{risk}",
                 max_selections=MAX_SELECTION
             )
+
+            if "Other" in new_consequences:
+                st.session_state[f"other_{risk}"] = True
+
+                raw_risk: str = st.text_input("Please could you specify", key=f"other_for_{risk}")
+                cleaned_risk: str = bleach.clean(raw_risk.strip(), tags=[], attributes={}, protocols=[], strip=True)
+                
+                if raw_risk:
+                    # Remplacer "Other" par la valeur nettoyée
+                    new_consequences = [c if c != "Other" else cleaned_risk for c in new_consequences]
+                else:
+                    all_filled = False  # Bloque la soumission si "Other" non rempli 
+            
             st.session_state[f"consequences_{risk}"] = new_consequences
 
             # Vérifiez si le formulaire est rempli
             if not new_consequences:
                 all_filled = False
 
+    profession = st.text_input("Please indicate your profession *", key="profession")
+    raw_comments = st.text_area("Are there any comments you'd like to mention?")
+    comments = bleach.clean(raw_comments.strip(), tags=[], attributes={}, protocols=[], strip=True)
+
+
     st.subheader("Overview of data collected")
 
-    profession = st.text_input("Please indicate your profession *", key="profession")
-    raw_other_risks = st.text_area("Are there any other risks you'd like to mention?")
-    other_risks = bleach.clean(raw_other_risks.strip(), tags=[], attributes={}, protocols=[], strip=True)
-
+    if 'submitted' not in st.session_state:
+        st.session_state.submitted = False
 
     # Vérifiez si tous les formulaires sont remplis avant d'afficher le bouton "Soumettre"
-    if all_filled:
+    if all_filled and profession and not st.session_state.submitted:
         if st.button("Submit/view data"):
-            # Collecter tous les choix
-            if not profession.strip():
-                st.error("Please fill in the 'Profession' field to submit your data.")
-                return
 
             st.session_state.data = [
-                {"risk": risk, "consequences": st.session_state[f"choices_{risk}"]}
+                {"risk": risk, "consequences": st.session_state[f"consequences_{risk}"], "other": st.session_state[f"other_{risk}"]}
                 for risk in selected_risks
             ]
 
             output = {
             "profession": profession,
             "responses": st.session_state.data,
-            "other_risks": other_risks.strip()
+            "comments": comments.strip()
             }
 
             filename = f"risk_mapping_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
@@ -103,9 +120,9 @@ def main():
             except Exception as e:
                 st.error(f"An error occurred while saving the results: {e}")
                 logging.error(f"An error occurred while uploading to Google Drive : {e}")
+            
+            st.session_state.submitted = True
 
-
-    
     # Affichage des données collectées
         if st.session_state.data:
             #st.json(st.session_state.data)
@@ -120,16 +137,22 @@ def main():
 
                 # Afficher le graphe dans Streamlit
                 st.components.v1.html(html_code, width=750, height=500)
+
             
             except:
                 st.markdown("error graph visualisation")
                 st.json(st.session_state.data)
 
-            
-    else:
+    # Afficher un message après soumission
+    if st.session_state.submitted:
+        st.success("Form Submitted !")
+        st.stop()  # Arrête l'exécution du script
+
+    if not (all_filled and profession and not st.session_state.submitted):
         # Si certains champs sont vides, afficher un bouton "Compléter les formulaires"
-        if st.button("Submit data"):
+        if st.button("In Progress"):
             st.warning("Please complete all forms before submitting.")
+
 
 
 # Fonction pour sauvegarder les données dans un fichier JSON

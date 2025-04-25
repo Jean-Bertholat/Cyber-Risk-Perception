@@ -1,13 +1,16 @@
 # Liste des risques globaux
+NUM_SELECTION_RANDOM = 2
+MAX_SELECTION = 5
+
 TITLE = "Mapping the Consequences of Global Risks"
-INTRODUCTION = """
+INTRODUCTION = f"""
 Welcome to the “Mapping the perception of cyber risks” application!
 
 The aim of this platform is to better understand the distribution of perception between different cyber risks, such as climate change, economic crises, pandemics, and many others. By taking part in this exercise, you'll help to identify possible relationships between these risks and the consequences they may have on each other.
 
 How it works :
 
-6 cyber risks will be proposed to you:
+{NUM_SELECTION_RANDOM} cyber risks will be proposed to you:
 For each proposed risk, you will be asked to select up to 5 other risks that could be triggered if that risk were to materialize.
 
 Complete the interconnections:
