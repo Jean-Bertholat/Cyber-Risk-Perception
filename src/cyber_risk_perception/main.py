@@ -1,8 +1,8 @@
 from random import sample
-from auth import upload_file
-from json2graph import json2graph
-from utils import GLOBAL_RISKS, INTRODUCTION
-from style import custom_css
+from cyber_risk_perception.auth import upload_file
+from cyber_risk_perception.json2graph import json2graph
+from cyber_risk_perception.utils import GLOBAL_RISKS, INTRODUCTION
+from cyber_risk_perception.style import custom_css
 import streamlit as st
 import json
 import os
@@ -34,10 +34,11 @@ def main():
         st.session_state.data = []
 
     # Stocker la sélection aléatoire une seule fois
-    if "selected_risks" not in st.session_state:
-        st.session_state.selected_risks = sample(GLOBAL_RISKS, k=NUM_SELECTION_RANDOM)
+    filtered_risks = [risk for risk in GLOBAL_RISKS if risk not in ["Autre", "Aucun"]]
 
-    # Récupérer les risques sélectionnés
+    if "selected_risks" not in st.session_state:
+        st.session_state.selected_risks = sample(filtered_risks, k=NUM_SELECTION_RANDOM)
+    
     selected_risks = st.session_state.selected_risks
 
     # Interface pour chaque risque principal

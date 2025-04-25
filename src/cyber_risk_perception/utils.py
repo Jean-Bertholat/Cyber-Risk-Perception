@@ -57,6 +57,7 @@ GLOBAL_RISKS = [
 "Cyber-espionnage industriel",
 "Exploitation de la virtualisation",
 "Attaque de type man-in-the-middle"
-"Autre"
+"Autre",
+"Aucun"
 ]
 
